@@ -1,5 +1,4 @@
 import React from "react";
-// import "./App.css";
 
 function TicketList() {
   const [data, setData] = React.useState([]);
