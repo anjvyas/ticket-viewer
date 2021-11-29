@@ -1,9 +1,8 @@
 import React from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 function TicketDetails() {
-  
-  const ticket_id = useParams().id
+  const ticket_id = useParams().id;
   const [ticketData, setTicketData] = React.useState([]);
 
   function back() {
@@ -12,27 +11,30 @@ function TicketDetails() {
 
   React.useEffect(() => {
     fetch("/tickets/view/" + ticket_id)
-      .then((res) => {console.log(res); return res.json(); })
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
       .then((json) => {
         console.log(json);
         setTicketData(json);
-      })
+      });
   }, [ticket_id]);
 
-  if(ticketData.id) {
+  if (ticketData.id) {
     return (
       <div className="TicketDetails">
         <div className="container mt-4">
           <h1 className="text-center">Ticket {ticket_id} Details</h1>
-  
+
           <table className="table mt-5">
-          <thead>
-            <tr>
-              <th scope="col">Attribute</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
-          <tbody>
+            <thead>
+              <tr>
+                <th scope="col">Attribute</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <th scope="row">Status</th>
                 <td>{ticketData.status}</td>
@@ -60,31 +62,39 @@ function TicketDetails() {
               <tr>
                 <th scope="row">Tags</th>
                 <td>
-              
-                {ticketData.tags && ticketData.tags.map(tag => (
-                    <span className="mx-1 badge bg-dark">{tag}</span>
-                ))}
+                  {ticketData.tags &&
+                    ticketData.tags.map((tag) => (
+                      <span className="mx-1 badge bg-dark">{tag}</span>
+                    ))}
                 </td>
               </tr>
-          </tbody>
-        </table>  
-  
-        <button onClick={() => back()} className="btn btn-primary">Back</button> 
+            </tbody>
+          </table>
+
+          <button onClick={() => back()} className="btn btn-primary">
+            Back
+          </button>
         </div>
       </div>
     );
   } else {
-    return(
-    <div className="TicketDetails">
+    return (
+      <div className="TicketDetails">
         <div className="container mt-4">
-          <h1 className="text-center">Oops...no such ticket exists in your system</h1>
-          <h4 className="text-center">Try again with another ID on the main page!</h4>
-          <button onClick={() => back()} className="btn btn-primary">Back</button>
+          <h1 className="text-center">
+            Oops! No such ticket exists in your system or we are having trouble
+            connecting to the API
+          </h1>
+          <h4 className="text-center">
+            Go to the main page to try another ID or get more tips!
+          </h4>
+          <button onClick={() => back()} className="btn btn-primary">
+            Back
+          </button>
         </div>
-    </div>
+      </div>
     );
   }
-  
 }
 
 export default TicketDetails;
