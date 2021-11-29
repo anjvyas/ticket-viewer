@@ -44,7 +44,7 @@ function TicketList() {
           </div>
         </form>
 
-        <table className="table">
+        <table className="table mt-4">
         <thead>
           <tr>
             <th scope="col">Ticket ID</th>
@@ -58,7 +58,7 @@ function TicketList() {
             {data.map(ticket => (
             <tr>
               <th scope="row">{ticket.id}</th>
-              <td>{ticket.created_at}</td>
+              <td>{new Date(ticket.created_at).toLocaleString()}</td>
               <td>{ticket.subject}</td>
               <td>{ticket.status}</td>
               <td>
@@ -72,8 +72,8 @@ function TicketList() {
       </table>
 
       
-            <nav aria-label="...">
-            <ul className="pagination">
+      <nav aria-label="...">
+            <ul className="pagination mt-5">
             <li onClick={() => setCurrPag("/prev/"+prev)} className="page-item"><button class="bg-primary text-light page-link">Previous</button></li>
             {hasMore &&
               <li onClick={() => setCurrPag("/next/"+next)} className="page-item"><button class="bg-primary text-light page-link">Next</button></li>
