@@ -1,25 +1,21 @@
 import React from "react";
-import "./App.css";
+// import "./App.css";
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState([]);
 
-  // React.useEffect(() => {
-  //   fetch("/api", {
-  //     method: 'GET',
-  //     withCredentials: true,
-  //     credentials: 'include',
-  //     headers: {
-  //       'Authorization': "gc",
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
+  React.useEffect(() => {
+    fetch("/home").then((res) => {return res.json(); }).then((json) => setData(json))
+  }, []);
 
   return (
     <div className="App">
-      <h1>Hi {process.env.REACT_APP_USERNAME}!</h1>
+      <h1>Ticket Viewer</h1>
+      <ul>
+        {data.map(ticket => (
+          <li>{ticket.description}</li>
+        ))}
+      </ul>
     </div>
   );
 }
